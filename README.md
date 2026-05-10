@@ -23,7 +23,7 @@ Aplikasi ini tidak hanya memberikan jawaban teks, tetapi juga menyajikan dashboa
 
 ## Tampilan Aplikasi
 
-![Cuplikan Antarmuka RimbaGuide]https://github.com/arizalirsyad/rimbaguide-chatbot/blob/main/Screenshot%202026-05-10%20141145.png
+![Cuplikan Antarmuka RimbaGuide](https://github.com/arizalirsyad/rimbaguide-chatbot/blob/main/Screenshot%202026-05-10%20141145.png)
 
 ## Cara Mencoba
 
