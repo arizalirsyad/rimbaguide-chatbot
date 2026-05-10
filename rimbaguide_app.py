@@ -1,14 +1,13 @@
 import streamlit as st
 from google import genai
 
-# ── 1. Konfigurasi Halaman & Tema ───────────────────────────────────────────
+# 1. Konfigurasi Halaman & Tema 
 st.set_page_config(
     page_title="RimbaGuide ⛰️", 
     page_icon="https://cdn-icons-png.flaticon.com/512/2822/2822453.png", 
-    layout="wide" # Menggunakan seluruh lebar layar
+    layout="wide" 
 )
 
-# Custom CSS untuk mempercantik UI dan mengurangi ruang kosong
 st.markdown("""
 <style>
     .main {
@@ -18,7 +17,7 @@ st.markdown("""
         border-radius: 15px;
         margin-bottom: 10px;
     }
-    /* Mengatur lebar kontainer agar lebih proporsional */
+
     [data-testid="stSidebar"] {
         background-color: #1b4332;
     }
@@ -35,7 +34,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── 2. Sidebar (Pengaturan & Info Tambahan) ──────────────────────────────────
+# 2. Sidebar (Pengaturan & Info Tambahan) 
 with st.sidebar:
     st.image("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=300", use_container_width=True)
     st.markdown("### ⚙️ Pengaturan")
@@ -54,8 +53,8 @@ with st.sidebar:
         st.session_state.pop("messages", None)
         st.rerun()
 
-# ── 3. Header & Banner ───────────────────────────────────────────────────────
-# Baris atas untuk Judul dan Banner agar tidak kosong
+# 3. Header & Banner 
+
 col_title, col_img = st.columns([2, 1])
 
 with col_title:
@@ -67,11 +66,10 @@ with col_title:
 
 st.divider()
 
-# ── 4. Layout Utama (Chat & Dashboard) ──────────────────────────────────────
-# Membagi area utama menjadi dua kolom
+# 4. Layout Utama (Chat & Dashboard) 
+
 chat_col, info_col = st.columns([2, 1])
 
-# --- Kolom Info (Sebelah Kanan) ---
 with info_col:
     st.subheader("📋 Checklist Persiapan")
     st.checkbox("Sepatu Trail/Hiking")
@@ -85,13 +83,11 @@ with info_col:
     with st.expander("Etika Pendaki"):
         st.write("Jangan tinggalkan apapun selain jejak, jangan ambil apapun selain foto.")
 
-# --- Kolom Chat (Sebelah Kiri) ---
 with chat_col:
     if not google_api_key:
         st.warning("Silakan masukkan API Key di sidebar untuk mengaktifkan AI.")
         st.stop()
 
-    # Inisialisasi Client
     if ("genai_client" not in st.session_state) or getattr(st.session_state, "_last_key", None) != google_api_key:
         try:
             st.session_state.genai_client = genai.Client(api_key=google_api_key)
@@ -102,7 +98,6 @@ with chat_col:
             st.error("API Key Bermasalah.")
             st.stop()
 
-    # Persona & Chat Session
     persona = "Kamu adalah RimbaGuide, asisten pendakian yang suportif dan sangat ahli dalam jalur gunung di Indonesia khususnya Jawa Tengah."
     if "chat" not in st.session_state:
         st.session_state.chat = st.session_state.genai_client.chats.create(
@@ -113,14 +108,13 @@ with chat_col:
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Container khusus untuk chat agar bisa scrollable jika panjang
     chat_placeholder = st.container(height=500)
     with chat_placeholder:
         for msg in st.session_state.messages:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
 
-    if prompt := st.chat_input("Tanya tentang jalur Thekelan atau logistik..."):
+    if prompt := st.chat_input("Tanya tentang jalur pendakian atau logistik..."):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with chat_placeholder:
             with st.chat_message("user"):
