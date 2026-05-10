@@ -42,6 +42,11 @@ Aplikasi ini sudah dideploy secara publik. Kamu bisa mencobanya langsung melalui
 Jika kamu ingin menjalankan proyek ini di mesin lokal kamu:
 
 1. Clone repositori ini:
-   ```bash
-  git clone https://github.com/arizalirsyad/rimbaguide-chatbot.git
-  cd rimbaguide-chatbot
+   git clone https://github.com/arizalirsyad/rimbaguide-chatbot.git
+   cd rimbaguide-chatbot
+
+2. Instal dependensi yang diperlukan:
+   pip install -r requirements.txt
+   
+3. Jalankan aplikasi:
+   streamlit run rimbaguide_app.py
